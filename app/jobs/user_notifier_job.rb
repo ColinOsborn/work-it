@@ -1,5 +1,5 @@
-class UserNotifierWorker
-  include Sidekiq::Worker
+class UserNotifierJob < ActiveJob::Base
+  queue_as :default
 
   def perform(email, thought)
     UserNotifier.send_randomness_email(email, thought).deliver_now
@@ -19,3 +19,6 @@ end
 
 # deliver_now - ActiveJob -- by passes active job all together
 # deliver_now - or deliver_later
+
+# ActiveJob
+# perform_later -- always use this method
